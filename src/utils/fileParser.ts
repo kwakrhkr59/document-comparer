@@ -1,7 +1,5 @@
 import * as pdfjsLib from 'pdfjs-dist'
-import * as mammoth from 'mammoth'
 
-// Use Vite's module URL resolution to locate the bundled worker
 pdfjsLib.GlobalWorkerOptions.workerSrc = new URL(
   'pdfjs-dist/build/pdf.worker.min.mjs',
   import.meta.url,
@@ -31,11 +29,9 @@ export async function parseFile(file: File): Promise<ParseResult> {
 
 async function parsePdf(file: File): Promise<ParseResult> {
   const arrayBuffer = await file.arrayBuffer()
-  const loadingTask = pdfjsLib.getDocument({ data: new Uint8Array(arrayBuffer) })
-  const pdf = await loadingTask.promise
+  const pdf = await pdfjsLib.getDocument({ data: new Uint8Array(arrayBuffer) }).promise
 
   const pages: string[] = []
-
   for (let i = 1; i <= pdf.numPages; i++) {
     const page = await pdf.getPage(i)
     const content = await page.getTextContent()
@@ -64,10 +60,15 @@ async function parsePdf(file: File): Promise<ParseResult> {
 }
 
 async function parseDocx(file: File): Promise<ParseResult> {
-  const arrayBuffer = await file.arrayBuffer()
-  const result = await mammoth.extractRawValue({ arrayBuffer })
+  // Dynamic import avoids mammoth's broken bundled typedefs at build time
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const mammoth = (await import('mammoth')) as any
+  const fn = mammoth.extractRawValue ?? mammoth.default?.extractRawValue
 
-  const text = result.value
+  const arrayBuffer = await file.arrayBuffer()
+  const result = await fn({ arrayBuffer })
+
+  const text: string = result.value ?? ''
   const lineCount = text.split('\n').filter((l: string) => l.trim() !== '').length
 
   return { text, meta: `${lineCount}줄`, error: null }
@@ -90,16 +91,9 @@ async function parseText(file: File): Promise<ParseResult> {
 export function getFileTypeLabel(fileName: string): string {
   const ext = fileName.split('.').pop()?.toLowerCase() ?? ''
   const map: Record<string, string> = {
-    pdf: 'PDF',
-    docx: 'DOCX',
-    doc: 'DOC',
-    md: 'MD',
-    txt: 'TXT',
-    json: 'JSON',
-    csv: 'CSV',
-    xml: 'XML',
-    yaml: 'YAML',
-    yml: 'YAML',
+    pdf: 'PDF', docx: 'DOCX', doc: 'DOC', md: 'MD',
+    txt: 'TXT', json: 'JSON', csv: 'CSV', xml: 'XML',
+    yaml: 'YAML', yml: 'YAML',
   }
   return map[ext] ?? ext.toUpperCase()
 }
