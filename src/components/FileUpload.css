@@ -9,6 +9,7 @@
   align-items: center;
   gap: 8px;
   min-height: 24px;
+  flex-wrap: wrap;
 }
 
 .badge {
@@ -38,17 +39,40 @@
   color: #e6edf3;
 }
 
-.file-name {
+.file-info {
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 6px;
+  margin-left: auto;
+  overflow: hidden;
+  min-width: 0;
+}
+
+.file-type-tag {
+  font-size: 10px;
+  font-weight: 700;
+  padding: 1px 5px;
+  border-radius: 3px;
+  background: #30363d;
+  color: #8b949e;
+  letter-spacing: 0.05em;
+  flex-shrink: 0;
+}
+
+.file-name-text {
   font-size: 12px;
   color: #8b949e;
-  margin-left: auto;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  max-width: 180px;
+  max-width: 140px;
+}
+
+.file-meta {
+  font-size: 11px;
+  color: #6e7681;
+  flex-shrink: 0;
+  white-space: nowrap;
 }
 
 .clear-btn {
@@ -59,7 +83,8 @@
   font-size: 18px;
   line-height: 1;
   padding: 0 2px;
-  margin-left: auto;
+  margin-left: 4px;
+  flex-shrink: 0;
   transition: color 0.15s;
 }
 
@@ -67,10 +92,7 @@
   color: #f85149;
 }
 
-.file-name + .clear-btn {
-  margin-left: 4px;
-}
-
+/* Drop zone */
 .drop-zone {
   border: 1px solid #30363d;
   border-radius: 8px;
@@ -81,7 +103,8 @@
   cursor: pointer;
 }
 
-.drop-zone.has-content {
+.drop-zone.has-content,
+.drop-zone.has-error {
   cursor: default;
 }
 
@@ -90,10 +113,16 @@
   background: rgba(31, 111, 235, 0.05);
 }
 
-.drop-zone:not(.has-content):hover {
+.drop-zone:not(.has-content):not(.has-error):hover {
   border-color: #8b949e;
 }
 
+.drop-zone.has-error {
+  border-color: rgba(248, 81, 73, 0.4);
+  background: rgba(248, 81, 73, 0.04);
+}
+
+/* Prompt (idle / loading / error) */
 .drop-prompt {
   display: flex;
   flex-direction: column;
@@ -115,11 +144,46 @@
   font-weight: 500;
 }
 
+.drop-text strong {
+  color: #e6edf3;
+}
+
 .drop-subtext {
   font-size: 12px;
   color: #6e7681;
 }
 
+.drop-subtext strong {
+  color: #8b949e;
+}
+
+/* Loading spinner */
+.spinner {
+  width: 32px;
+  height: 32px;
+  border: 3px solid #30363d;
+  border-top-color: #1f6feb;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Error state */
+.error-icon {
+  color: #f85149;
+}
+
+.error-text {
+  color: #f85149;
+  font-size: 13px;
+  max-width: 340px;
+  line-height: 1.5;
+}
+
+/* Text editor */
 .text-editor {
   width: 100%;
   height: 320px;
