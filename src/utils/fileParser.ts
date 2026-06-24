@@ -1,5 +1,5 @@
 import * as pdfjsLib from 'pdfjs-dist'
-import mammoth from 'mammoth'
+import * as mammoth from 'mammoth'
 
 // Use Vite's module URL resolution to locate the bundled worker
 pdfjsLib.GlobalWorkerOptions.workerSrc = new URL(
@@ -67,17 +67,8 @@ async function parseDocx(file: File): Promise<ParseResult> {
   const arrayBuffer = await file.arrayBuffer()
   const result = await mammoth.extractRawValue({ arrayBuffer })
 
-  if (result.messages.length > 0) {
-    const warnings = result.messages
-      .filter(m => m.type === 'warning')
-      .map(m => m.message)
-    if (warnings.length > 0) {
-      console.warn('[mammoth warnings]', warnings)
-    }
-  }
-
   const text = result.value
-  const lineCount = text.split('\n').filter(l => l.trim() !== '').length
+  const lineCount = text.split('\n').filter((l: string) => l.trim() !== '').length
 
   return { text, meta: `${lineCount}줄`, error: null }
 }
