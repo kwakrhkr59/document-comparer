@@ -1,0 +1,155 @@
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Header */
+.app-header {
+  background: #161b22;
+  border-bottom: 1px solid #30363d;
+  padding: 0 24px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.header-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #e6edf3;
+}
+
+.header-title svg {
+  color: #8b949e;
+}
+
+.view-toggle {
+  display: flex;
+  background: #0d1117;
+  border: 1px solid #30363d;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.view-toggle button {
+  background: none;
+  border: none;
+  color: #8b949e;
+  padding: 5px 14px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.view-toggle button:hover {
+  background: #1f2937;
+  color: #e6edf3;
+}
+
+.view-toggle button.active {
+  background: #1f6feb;
+  color: #fff;
+}
+
+/* Upload section */
+.app-main {
+  flex: 1;
+  padding: 32px 24px;
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.upload-section {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.upload-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+@media (max-width: 768px) {
+  .upload-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.compare-action {
+  display: flex;
+  justify-content: center;
+}
+
+.compare-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #238636;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 24px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.compare-btn:hover:not(:disabled) {
+  background: #2ea043;
+}
+
+.compare-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* Diff section */
+.diff-section {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.diff-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.back-btn {
+  background: none;
+  border: 1px solid #30363d;
+  color: #8b949e;
+  border-radius: 6px;
+  padding: 5px 12px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s;
+}
+
+.back-btn:hover {
+  border-color: #8b949e;
+  color: #e6edf3;
+}
+
+.diff-stats {
+  font-size: 13px;
+  color: #8b949e;
+}

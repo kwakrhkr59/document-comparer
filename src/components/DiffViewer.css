@@ -1,0 +1,208 @@
+.no-diff {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 60px;
+  color: #3fb950;
+  font-size: 15px;
+  background: rgba(46, 160, 67, 0.05);
+  border: 1px solid rgba(46, 160, 67, 0.2);
+  border-radius: 8px;
+}
+
+/* File header bar */
+.diff-viewer {
+  border: 1px solid #30363d;
+  border-radius: 8px;
+  overflow: hidden;
+  font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+  font-size: 12px;
+}
+
+.diff-file-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  background: #161b22;
+  border-bottom: 1px solid #30363d;
+  font-size: 13px;
+}
+
+.diff-file-icon {
+  color: #8b949e;
+  display: flex;
+  align-items: center;
+}
+
+.diff-file-name {
+  font-weight: 600;
+  color: #e6edf3;
+  flex: 1;
+}
+
+.stat-added {
+  color: #3fb950;
+  font-weight: 600;
+  font-size: 12px;
+}
+
+.stat-removed {
+  color: #f85149;
+  font-weight: 600;
+  font-size: 12px;
+}
+
+.stat-bar {
+  display: flex;
+  gap: 2px;
+}
+
+.stat-bar > div {
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+}
+
+.bar-added { background: #3fb950; }
+.bar-removed { background: #f85149; }
+
+/* Table */
+.diff-table-wrap {
+  overflow-x: auto;
+}
+
+.diff-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+.unified {
+  --col-linenum: 48px;
+  --col-sign: 28px;
+}
+
+/* Hunk header */
+.hunk-header td {
+  background: #1c2128;
+  padding: 4px 14px;
+  color: #8b949e;
+  font-size: 12px;
+  border-top: 1px solid #30363d;
+  border-bottom: 1px solid #30363d;
+}
+
+.hunk-label {
+  font-family: 'SFMono-Regular', Consolas, monospace;
+}
+
+/* Line numbers */
+.line-num {
+  user-select: none;
+  text-align: right;
+  padding: 0 10px;
+  min-width: 48px;
+  width: 48px;
+  color: #6e7681;
+  border-right: 1px solid #21262d;
+  vertical-align: top;
+  line-height: 20px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+}
+
+/* Sign column (unified) */
+.line-sign {
+  user-select: none;
+  text-align: center;
+  width: 28px;
+  min-width: 28px;
+  padding: 2px 4px;
+  vertical-align: top;
+  line-height: 20px;
+  color: #6e7681;
+}
+
+/* Content */
+.line-content {
+  padding: 2px 0;
+  vertical-align: top;
+  white-space: pre;
+  overflow: hidden;
+}
+
+.line-content pre {
+  margin: 0;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: 20px;
+  padding: 0 12px;
+  white-space: pre;
+  overflow-x: auto;
+}
+
+/* Split view: sign inside content cell */
+.split .line-content {
+  display: flex;
+  align-items: flex-start;
+}
+
+.split .line-sign {
+  flex-shrink: 0;
+  width: 20px;
+  min-width: 20px;
+  padding: 2px 4px;
+  line-height: 20px;
+}
+
+/* Row types */
+.diff-table .row-added,
+.diff-table .added {
+  background: rgba(46, 160, 67, 0.1);
+}
+
+.diff-table .row-removed,
+.diff-table .removed {
+  background: rgba(248, 81, 73, 0.1);
+}
+
+.diff-table .row-unchanged,
+.diff-table .unchanged,
+.diff-table .empty {
+  background: transparent;
+}
+
+/* Colorize sign in added/removed rows */
+.diff-table .row-added .line-sign,
+.diff-table .added .line-sign {
+  color: #3fb950;
+}
+
+.diff-table .row-removed .line-sign,
+.diff-table .removed .line-sign {
+  color: #f85149;
+}
+
+.diff-table .row-added .line-num,
+.diff-table .added.line-num {
+  background: rgba(46, 160, 67, 0.08);
+}
+
+.diff-table .row-removed .line-num,
+.diff-table .removed.line-num {
+  background: rgba(248, 81, 73, 0.08);
+}
+
+/* Split divider */
+.split-divider {
+  width: 1px;
+  background: #21262d;
+  padding: 0;
+}
+
+/* Hover highlight */
+.diff-row:hover td {
+  filter: brightness(1.15);
+}
